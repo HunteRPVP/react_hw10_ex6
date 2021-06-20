@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useData } from "./DataContext";
@@ -16,9 +16,12 @@ export const Step3 = () => {
       files: data.files,
     },
   });
+  const [files, setFiles] = useState([])
+  
 
   const onSubmit = (data) => {
     history.push("./result");
+    data = {files};
     setValues(data);
   };
 
@@ -28,7 +31,7 @@ export const Step3 = () => {
         🦄 Step 3
       </Typography>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <FileInput name="files" control={control} />
+        <FileInput name="files" control={control} onFilesChange={(files) => setFiles(files)} />
         <PrimaryButton>Next</PrimaryButton>
       </Form>
     </MainContainer>

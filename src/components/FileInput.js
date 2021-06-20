@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Dropzone from "react-dropzone";
 import { Controller } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,17 +26,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const FileInput = ({ control, name }) => {
+export const FileInput = ({ control, name, onFilesChange }) => {
   const styles = useStyles();
+
+  const [files, setFiles] = useState([]);
 
   return (
     <Controller
       control={control}
       name={name}
       defaultValue={[]}
-      render={({ onChange, onBlur, value }) => (
+      render={({ onBlur , value }) => (
         <>
-          <Dropzone onDrop={onChange}>
+          <Dropzone
+            onDrop={(uploadFiles) => {
+              let temp = files;
+              temp = temp.concat(uploadFiles);
+              value = temp;
+              setFiles(temp);
+              onFilesChange(files.concat(temp));
+            }}
+          >
             {({ getRootProps, getInputProps }) => (
               <Paper
                 variant="outlined"
@@ -50,7 +60,7 @@ export const FileInput = ({ control, name }) => {
             )}
           </Dropzone>
           <List>
-            {value?.map((f, index) => (
+            {files?.map((f, index) => (
               <ListItem key={index}>
                 <ListItemIcon>
                   <InsertDriveFile />

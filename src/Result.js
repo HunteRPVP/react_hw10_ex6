@@ -37,6 +37,8 @@ export const Result = () => {
   const entries = Object.entries(data).filter((entry) => entry[0] !== "files");
   const { files } = data;
 
+  console.log(files);
+
   const onSubmit = async () => {
     const formData = new FormData();
     if (data.files) {

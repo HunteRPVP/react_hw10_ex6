@@ -31,7 +31,7 @@ const normalizePhoneNumber = (value) => {
 export const Step2 = () => {
   const { setValues, data } = useData();
   const history = useHistory();
-  const { register, handleSubmit, watch, errors } = useForm({
+  const { register, handleSubmit, watch, formState: { errors } } = useForm({
     defaultValues: {
       email: data.email,
       hasPhone: data.hasPhone,

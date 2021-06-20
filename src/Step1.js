@@ -24,7 +24,7 @@ const schema = yup.object().shape({
 export const Step1 = () => {
   const { setValues, data } = useData();
   const history = useHistory();
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: { firstName: data.firstName, lastName: data.lastName },
     mode: "onBlur",
     resolver: yupResolver(schema),
